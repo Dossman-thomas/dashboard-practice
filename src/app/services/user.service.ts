@@ -4,6 +4,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
+  password: string; 
   role: string;
 }
 
@@ -13,9 +14,9 @@ export interface User {
 export class UserService {
 
   private users: User[] = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', role: 'admin' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', role: 'data manager' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', role: 'employee' }
+    { id: 1, name: 'John Doe', email: 'john@example.com', password: 'Admin@123!', role: 'admin' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com', password: 'Manager@123!', role: 'data manager' },
+    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', password: 'Employee@123!', role: 'employee' }
   ];
 
   constructor() { }
