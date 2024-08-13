@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif; /* You can change this to your preferred font */
+    line-height: 1.6;
+  }
+  
+  /* Optional: Set a consistent link style */
+  a {
+    text-decoration: none;
+    color: inherit; /* Inherit color from parent element */
+  }
+  
