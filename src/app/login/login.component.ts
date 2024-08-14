@@ -29,14 +29,19 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    // Handle the login logic here
+    // Log the credentials before checking
     console.log('Email:', this.email);
     console.log('Password:', this.password);
     console.log('Remember Me:', this.rememberMe);
   
+    console.log('Users from service:', this.userService.getUsers());
+
     // Check both email and password against static data
-    const user = this.userService.getUsers().find(u => u.email === this.email && u.password === this.password);
-    
+    const user = this.userService.getUsers().find(u => {
+      console.log('Checking user:', u.email, 'with password:', u.password); // Debugging line
+      return u.email === this.email && u.password === this.password;
+    });
+  
     if (user) {
       console.log('Login successful');
       if (this.rememberMe) {
@@ -46,13 +51,15 @@ export class LoginComponent {
         localStorage.removeItem('email');
         localStorage.removeItem('password');
       }
-      
+  
       alert('Login successful');
       // Redirect to dashboard or other logic here
-      this.router.navigate(['/dashboard']); // Update this route when dashboard is implemented
+      this.router.navigate(['/dashboard']);
     } else {
+      console.log('Invalid credentials');
       alert('Invalid credentials');
     }
   }
+  
   
 }
