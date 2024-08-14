@@ -46,9 +46,10 @@ export class LoginComponent {
         localStorage.removeItem('email');
         localStorage.removeItem('password');
       }
-  
+      
+      alert('Login successful');
       // Redirect to dashboard or other logic here
-      // this.router.navigate(['/dashboard']); // Update this route when dashboard is implemented
+      this.router.navigate(['/dashboard']); // Update this route when dashboard is implemented
     } else {
       alert('Invalid credentials');
     }
