@@ -19,19 +19,28 @@
   
       <div class="form-group">
         <label for="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          required
-          [(ngModel)]="password"
-          name="password"
-          #passwordInput="ngModel"
-        />
+        <div class="input-group">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            class="form-control"
+            required
+            [(ngModel)]="password"
+            name="password"
+            #passwordInput="ngModel"
+          />
+          <span class="input-group-text eye-icon" (click)="togglePasswordVisibility()" style="cursor: pointer;">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </span>
+          
+        </div>
         <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
           Password must be between 7 and 15 characters, with at least one uppercase letter, one lowercase letter, one number, and one special character.
         </div>
       </div>
+      
+      
+      
   
       <div class="form-group form-check">
         <input

@@ -11,6 +11,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
+  showPassword: boolean = false; // This property is correctly defined now
 
   constructor(private router: Router, private userService: UserService) {}
 
@@ -30,15 +31,15 @@ export class LoginComponent {
 
   onSubmit() {
     // Log the credentials before checking
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    console.log('Remember Me:', this.rememberMe);
+    // console.log('Email:', this.email);
+    // console.log('Password:', this.password);
+    // console.log('Remember Me:', this.rememberMe);
   
-    console.log('Users from service:', this.userService.getUsers());
+    // console.log('Users from service:', this.userService.getUsers());
 
     // Check both email and password against static data
     const user = this.userService.getUsers().find(u => {
-      console.log('Checking user:', u.email, 'with password:', u.password); // Debugging line
+      // console.log('Checking user:', u.email, 'with password:', u.password); // Debugging line
       return u.email === this.email && u.password === this.password;
     });
   
@@ -56,10 +57,12 @@ export class LoginComponent {
       // Redirect to dashboard or other logic here
       this.router.navigate(['/dashboard']);
     } else {
-      console.log('Invalid credentials');
+      // console.log('Invalid credentials');
       alert('Invalid credentials');
     }
   }
-  
-  
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword; // Toggles the value of showPassword
+  }
 }

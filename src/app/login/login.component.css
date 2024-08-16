@@ -1,0 +1,12 @@
+.eye-icon {
+    background-color: transparent;
+    border-left: none; /* Remove the border on the left side of the eye icon*/
+  }
+
+  .input-group-text {
+    cursor: pointer;
+  }
+
+  #password {
+    border-right: none; /* Remove the border on the right of the password input field */
+  }
