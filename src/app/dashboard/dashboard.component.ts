@@ -9,11 +9,29 @@ import { UserService, User } from '../services/user.service';
 export class DashboardComponent implements OnInit {
   users: User[] = [];
   totalUsers: number = 0;
+  adminCount: number = 0;
+  dataManagerCount: number = 0;
+  employeeCount: number = 0;
+  firstName: string = '';
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
+    // Retrieve current user from localStorage
+    const currentUserData = localStorage.getItem('currentUser');
+    if (currentUserData) {
+      const currentUser: User = JSON.parse(currentUserData);
+      this.firstName = currentUser.name.split(' ')[0]; // Extract first name
+    } else {
+      // Handle case where there is no logged-in user
+      this.firstName = 'User';
+    }
+
     this.users = this.userService.getUsers();
-    this.totalUsers = this.users.length; // Calculate total users
+    this.totalUsers = this.users.length;
+
+    this.adminCount = this.users.filter(user => user.role === 'admin').length;
+    this.dataManagerCount = this.users.filter(user => user.role === 'data manager').length;
+    this.employeeCount = this.users.filter(user => user.role === 'employee').length;
   }
 }

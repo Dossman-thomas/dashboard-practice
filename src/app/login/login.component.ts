@@ -45,6 +45,10 @@ export class LoginComponent {
   
     if (user) {
       console.log('Login successful');
+
+      // store user information in localstorage for future use
+      localStorage.setItem('currentUser', JSON.stringify(user));
+
       if (this.rememberMe) {
         localStorage.setItem('email', this.email);
         localStorage.setItem('password', this.password);

@@ -1,7 +1,7 @@
 <div class="container mt-5">
-    <h2>Dashboard</h2>
-    <div class="row">
-      <div class="col-md-4">
+    <h2>Welcome, {{ firstName }}</h2>
+    <div class="row mt-4">
+      <div class="col-md-3">
         <div class="card text-white bg-primary mb-3">
           <div class="card-header">Total Users</div>
           <div class="card-body">
@@ -9,5 +9,33 @@
           </div>
         </div>
       </div>
-      <!-- Add more cards as needed -->
+      
+      <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+          <div class="card-header">Admins</div>
+          <div class="card-body">
+            <h5 class="card-title">{{ adminCount }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+          <div class="card-header">Data Managers</div>
+          <div class="card-body">
+            <h5 class="card-title">{{ dataManagerCount }}</h5>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+          <div class="card-header">Employees</div>
+          <div class="card-body">
+            <h5 class="card-title">{{ employeeCount }}</h5>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  
