@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../services/user.service';
+import { ColDef } from 'ag-grid-community';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +15,26 @@ export class DashboardComponent implements OnInit {
   dataManagerCount: number = 0;
   employeeCount: number = 0;
   firstName: string = '';
+
+  paginationPageSizeSelector = [10, 25, 50, 100];
+  paginationPageSize = 10;
+  pagination = true;
+
+  defaultColDef: ColDef = {
+    flex: 1,
+    filter: true,
+    floatingFilter: true,
+    sortable: true,
+  };
+
+  colDefs: ColDef[] = [
+    { field: 'id', headerName: "ID" },
+    { field: 'name', headerName: "Name" },
+    { field: 'email', headerName: "Email" },
+    { field: 'role', headerName: "Role" }
+  ];
+
+  rowData: User[] = [];
 
   constructor(private userService: UserService) {}
 
@@ -29,7 +51,7 @@ export class DashboardComponent implements OnInit {
 
     this.users = this.userService.getUsers();
     this.totalUsers = this.users.length;
-
+    this.rowData = this.users;
     this.adminCount = this.users.filter(user => user.role === 'admin').length;
     this.dataManagerCount = this.users.filter(user => user.role === 'data manager').length;
     this.employeeCount = this.users.filter(user => user.role === 'employee').length;
