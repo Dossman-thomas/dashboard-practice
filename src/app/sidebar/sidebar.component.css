@@ -1,7 +1,7 @@
 .sidebar {
     width: 250px;
-    background-color: #333;
-    color: white;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     height: 100vh;
     padding: 20px;
     transition: width 0.3s ease;
@@ -14,7 +14,7 @@
   .toggle-btn {
     background-color: transparent;
     border: none;
-    color: white;
+    color: #4B49AC;
     cursor: pointer;
     margin-bottom: 20px;
   }
@@ -26,18 +26,21 @@
   
   .menu-items li {
     margin-bottom: 20px;
+
   }
   
   .menu-items button {
     background-color: transparent;
     border: none;
-    color: white;
+    color: #4B49AC;
     text-align: left;
     width: 100%;
     padding: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    border-radius: 15px;
+    transition: .5s;
   }
   
   .menu-items button i {
@@ -45,6 +48,12 @@
   }
   
   .menu-items button.active {
-    background-color: purple;
+    background-color: #4B49AC;
+    color: white;
+  }
+
+  .menu-items button:hover {
+    background-color: #F3797E;
+    color: white;
   }
   

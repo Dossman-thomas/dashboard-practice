@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service'; // Adjust the path as needed
 
 @Component({
   selector: 'app-header',
@@ -8,11 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   userEmail: string | null = null;
 
+  constructor(private userService: UserService) {}
+
   ngOnInit(): void {
-    const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
-      const user = JSON.parse(currentUser);
-      this.userEmail = user.email;
-    }
+    this.userService.currentUser$.subscribe(user => {
+      this.userEmail = user?.email || null;
+    });
   }
 }

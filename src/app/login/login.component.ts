@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService, User } from '../services/user.service';
 
@@ -7,7 +7,7 @@ import { UserService, User } from '../services/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
@@ -16,7 +16,7 @@ export class LoginComponent {
   constructor(private router: Router, private userService: UserService) {}
 
   ngOnInit() {
-    // Check for stored credentials in cookies and populate the fields
+    // Check for stored credentials in localStorage and populate the fields
     const storedEmail = localStorage.getItem('email');
     const storedPassword = localStorage.getItem('password');
 
@@ -27,27 +27,22 @@ export class LoginComponent {
     if (storedPassword) {
       this.password = storedPassword;
     }
+
+    console.log('Stored Email:', storedEmail);
+    console.log('Stored Password:', storedPassword);
   }
 
   onSubmit() {
-    // Log the credentials before checking
-    // console.log('Email:', this.email);
-    // console.log('Password:', this.password);
-    // console.log('Remember Me:', this.rememberMe);
-  
-    // console.log('Users from service:', this.userService.getUsers());
-
     // Check both email and password against static data
     const user = this.userService.getUsers().find(u => {
-      // console.log('Checking user:', u.email, 'with password:', u.password); // Debugging line
       return u.email === this.email && u.password === this.password;
     });
   
     if (user) {
       console.log('Login successful');
 
-      // store user information in localstorage for future use
-      localStorage.setItem('currentUser', JSON.stringify(user));
+      // Set the current user using UserService
+      this.userService.setCurrentUser(user);
 
       if (this.rememberMe) {
         localStorage.setItem('email', this.email);
@@ -61,7 +56,6 @@ export class LoginComponent {
       // Redirect to dashboard or other logic here
       this.router.navigate(['/dashboard']);
     } else {
-      // console.log('Invalid credentials');
       alert('Invalid credentials');
     }
   }
