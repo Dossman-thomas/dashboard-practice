@@ -1,0 +1,40 @@
+<div class="sidebar" [ngClass]="{ 'collapsed': isCollapsed }">
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <!-- Icon for the toggle button -->
+      <i class="fa" [ngClass]="isCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+    </button>
+  
+    <ul class="menu-items">
+      <li>
+        <button routerLink="/dashboard" routerLinkActive="active">
+          <i class="fa fa-home"></i>
+          <span *ngIf="!isCollapsed">Dashboard</span>
+        </button>
+      </li>
+      <li *ngIf="isAdmin">
+        <button routerLink="/manage-permissions" routerLinkActive="active">
+          <i class="fa fa-lock"></i>
+          <span *ngIf="!isCollapsed">Manage Permissions</span>
+        </button>
+      </li>
+      <li *ngIf="isAdmin || isDataManager">
+        <button routerLink="/manage-records" routerLinkActive="active">
+          <i class="fa fa-database"></i>
+          <span *ngIf="!isCollapsed">Manage Records</span>
+        </button>
+      </li>
+      <li>
+        <button routerLink="/my-account" routerLinkActive="active">
+          <i class="fa fa-user"></i>
+          <span *ngIf="!isCollapsed">My Account</span>
+        </button>
+      </li>
+      <li>
+        <button (click)="logout()">
+          <i class="fa fa-sign-out-alt"></i>
+          <span *ngIf="!isCollapsed">Log out</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+  
