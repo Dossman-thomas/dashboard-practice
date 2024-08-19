@@ -1,28 +1,2 @@
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f8f9fa; /* Adjust as needed */
-    border-bottom: 1px solid #e1e1e1; /* Optional border */
-  }
-  
-  .logo img {
-    height: 40px; /* Adjust size as needed */
-  }
-  
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .user-icon {
-    margin-right: 10px; /* Space between icon and email */
-    height: 30px; /* Adjust size as needed */
-  }
-  
-  .user-info span {
-    font-size: 16px; /* Adjust font size as needed */
-    color: #333; /* Adjust color as needed */
-  }
+
   
