@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service'; // Adjust the path as needed
+import { User } from '../services/user.service'; // Ensure User type is imported if used
 
 @Component({
   selector: 'app-header',
