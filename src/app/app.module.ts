@@ -12,6 +12,9 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ManagePermissionsComponent } from './manage-permissions/manage-permissions.component';
 import { ManageRecordsComponent } from './manage-records/manage-records.component';
+import { CreateRecordComponent } from './create-record/create-record.component';
+import { UpdateRecordComponent } from './update-record/update-record.component';
+import { DeleteRecordComponent } from './delete-record/delete-record.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { ManageRecordsComponent } from './manage-records/manage-records.componen
     HeaderComponent,
     SidebarComponent,
     ManagePermissionsComponent,
-    ManageRecordsComponent
+    ManageRecordsComponent,
+    CreateRecordComponent,
+    UpdateRecordComponent,
+    DeleteRecordComponent
   ],
   imports: [
     BrowserModule,
