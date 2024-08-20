@@ -9,7 +9,7 @@ import { ManagePermissionsComponent } from './manage-permissions/manage-permissi
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to login on load
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'manage-permissions', component: ManagePermissionsComponent }
   // Add other routes here in the future
 ];

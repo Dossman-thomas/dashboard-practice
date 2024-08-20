@@ -35,23 +35,6 @@ export class UserService {
       password: 'Employee@123!',
       role: 'employee',
     },
-
-    // Additional admins
-    {
-      id: 4,
-      name: 'Alice Williams',
-      email: 'alice@example.com',
-      password: 'Admin@234!',
-      role: 'admin',
-    },
-    {
-      id: 5,
-      name: 'Michael Brown',
-      email: 'michael@example.com',
-      password: 'Admin@345!',
-      role: 'admin',
-    },
-
     // Additional data managers
     {
       id: 6,
