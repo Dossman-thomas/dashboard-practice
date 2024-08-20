@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 export interface RolePermissions {
   role: string;
@@ -12,7 +13,7 @@ export interface RolePermissions {
   providedIn: 'root',
 })
 export class PermissionsService {
-  private rolesPermissions: RolePermissions[] = [
+  private rolesPermissionsSubject = new BehaviorSubject<RolePermissions[]>([
     {
       role: 'admin',
       canCreate: true,
@@ -34,47 +35,41 @@ export class PermissionsService {
       canUpdate: false,
       canDelete: false,
     },
-  ];
+  ]);
+
+  // Observable to emit role permissions
+  rolePermissions$ = this.rolesPermissionsSubject.asObservable();
 
   constructor() {
-    this.loadPermissions(); // Load permissions from localStorage on service initialization
+    // Optionally load initial data if needed
   }
 
-  // Retrieve all role permissions
-  getPermissions(): RolePermissions[] {
-    return this.rolesPermissions;
+  // Retrieve all role permissions as an observable
+  getPermissions$(): Observable<RolePermissions[]> {
+    return this.rolePermissions$;
   }
 
   // Get permissions for a specific role
-  getPermissionsForRole(role: string): RolePermissions | undefined {
-    return this.rolesPermissions.find(rp => rp.role === role);
-  }
-
-  // Save permissions to localStorage
-  savePermissions(): void {
-    localStorage.setItem(
-      'rolesPermissions',
-      JSON.stringify(this.rolesPermissions)
-    );
-  }
-
-  // Load permissions from localStorage
-  loadPermissions(): void {
-    const savedPermissions = localStorage.getItem('rolesPermissions');
-    if (savedPermissions) {
-      this.rolesPermissions = JSON.parse(savedPermissions);
-    }
+  getPermissionsForRole(role: string): Observable<RolePermissions | undefined> {
+    const permissions = this.rolesPermissionsSubject.getValue().find(rp => rp.role === role);
+    return of(permissions);
   }
 
   // Update permissions for a specific role
-  updatePermissions(role: string, permissions: Partial<RolePermissions>): void {
-    const roleIndex = this.rolesPermissions.findIndex((rp) => rp.role === role);
+  updatePermissions(role: string, permissions: Partial<RolePermissions>): Observable<void> {
+    const rolePermissions = this.rolesPermissionsSubject.getValue();
+    const roleIndex = rolePermissions.findIndex(rp => rp.role === role);
+
     if (roleIndex !== -1) {
-      this.rolesPermissions[roleIndex] = {
-        ...this.rolesPermissions[roleIndex],
-        ...permissions,
-      };
-      this.savePermissions(); // Save updated permissions to localStorage
+      const updatedPermissions = { ...rolePermissions[roleIndex], ...permissions };
+      
+      // Check if there are actual changes before updating
+      if (JSON.stringify(rolePermissions[roleIndex]) !== JSON.stringify(updatedPermissions)) {
+        rolePermissions[roleIndex] = updatedPermissions;
+        this.rolesPermissionsSubject.next(rolePermissions); // Emit updated permissions
+      }
     }
+
+    return of(undefined);
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { PermissionsService, RolePermissions } from '../services/permissions.service';
 
 @Component({
@@ -7,18 +8,29 @@ import { PermissionsService, RolePermissions } from '../services/permissions.ser
   styleUrls: ['./manage-permissions.component.css']
 })
 export class ManagePermissionsComponent implements OnInit {
-  rolePermissions: RolePermissions[] = [];
+  rolePermissions$: Observable<RolePermissions[]> = of([]); // Initialize with an empty observable
 
   constructor(private permissionsService: PermissionsService) {}
 
   ngOnInit(): void {
-    this.rolePermissions = this.permissionsService.getPermissions();
+    // Load role permissions from the service
+    this.rolePermissions$ = this.permissionsService.getPermissions$();
   }
 
-  onPermissionChange(role: string): void {
-    const updatedRole = this.rolePermissions.find(rp => rp.role === role);
-    if (updatedRole) {
-      this.permissionsService.updatePermissions(role, updatedRole);
-    }
+  onPermissionChange(role: string, event: Event): void {
+    const checkbox = event.target as HTMLInputElement;
+    this.rolePermissions$.subscribe(rolePermissions => {
+      const updatedRole = rolePermissions.find(rp => rp.role === role);
+      if (updatedRole) {
+        const updatedPermissions = {
+          ...updatedRole,
+          [checkbox.name]: checkbox.checked
+        };
+
+        this.permissionsService.updatePermissions(role, updatedPermissions).subscribe(() => {
+          console.log(`${role} permissions updated successfully`);
+        });
+      }
+    });
   }
 }
