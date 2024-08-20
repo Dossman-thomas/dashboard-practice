@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ManagePermissionsComponent } from './manage-permissions/manage-permissions.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     LoginComponent,
     DashboardComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    ManagePermissionsComponent
   ],
   imports: [
     BrowserModule,
