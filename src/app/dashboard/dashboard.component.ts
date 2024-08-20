@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../services/user.service';
 import { ColDef } from 'ag-grid-community';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,15 +22,14 @@ export class DashboardComponent implements OnInit {
   defaultColDef: ColDef = {
     flex: 1,
     filter: true,
-    floatingFilter: true,
     sortable: true,
   };
 
   colDefs: ColDef[] = [
-    { field: 'id', headerName: "ID" },
-    { field: 'name', headerName: "Name" },
-    { field: 'email', headerName: "Email" },
-    { field: 'role', headerName: "Role" }
+    { field: 'id', headerName: 'ID' },
+    { field: 'name', headerName: 'Name' },
+    { field: 'email', headerName: 'Email' },
+    { field: 'role', headerName: 'Role' }
   ];
 
   rowData: User[] = [];
@@ -49,11 +47,14 @@ export class DashboardComponent implements OnInit {
       this.firstName = 'User';
     }
 
-    this.users = this.userService.getUsers();
-    this.totalUsers = this.users.length;
-    this.rowData = this.users;
-    this.adminCount = this.users.filter(user => user.role === 'admin').length;
-    this.dataManagerCount = this.users.filter(user => user.role === 'data manager').length;
-    this.employeeCount = this.users.filter(user => user.role === 'employee').length;
+    // Fetch users from UserService
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+      this.totalUsers = this.users.length;
+      this.rowData = this.users;
+      this.adminCount = this.users.filter(user => user.role === 'admin').length;
+      this.dataManagerCount = this.users.filter(user => user.role === 'data manager').length;
+      this.employeeCount = this.users.filter(user => user.role === 'employee').length;
+    });
   }
 }

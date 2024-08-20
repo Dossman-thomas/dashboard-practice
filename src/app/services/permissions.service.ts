@@ -40,10 +40,17 @@ export class PermissionsService {
     this.loadPermissions(); // Load permissions from localStorage on service initialization
   }
 
+  // Retrieve all role permissions
   getPermissions(): RolePermissions[] {
     return this.rolesPermissions;
   }
 
+  // Get permissions for a specific role
+  getPermissionsForRole(role: string): RolePermissions | undefined {
+    return this.rolesPermissions.find(rp => rp.role === role);
+  }
+
+  // Save permissions to localStorage
   savePermissions(): void {
     localStorage.setItem(
       'rolesPermissions',
@@ -51,6 +58,7 @@ export class PermissionsService {
     );
   }
 
+  // Load permissions from localStorage
   loadPermissions(): void {
     const savedPermissions = localStorage.getItem('rolesPermissions');
     if (savedPermissions) {
@@ -58,6 +66,7 @@ export class PermissionsService {
     }
   }
 
+  // Update permissions for a specific role
   updatePermissions(role: string, permissions: Partial<RolePermissions>): void {
     const roleIndex = this.rolesPermissions.findIndex((rp) => rp.role === role);
     if (roleIndex !== -1) {

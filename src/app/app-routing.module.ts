@@ -5,12 +5,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagePermissionsComponent } from './manage-permissions/manage-permissions.component';
+import { ManageRecordsComponent } from './manage-records/manage-records.component';
 
+// Define routes
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to login on load
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'manage-permissions', component: ManagePermissionsComponent }
+  { path: 'manage-permissions', component: ManagePermissionsComponent },
+  { path: 'manage-records', component: ManageRecordsComponent },
   // Add other routes here in the future
 ];
 

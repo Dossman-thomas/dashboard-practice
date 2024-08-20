@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export interface User {
   id: number;
@@ -8,7 +9,6 @@ export interface User {
   password: string;
   role: string;
 }
-
 @Injectable({
   providedIn: 'root',
 })
@@ -257,45 +257,59 @@ export class UserService {
     },
   ];
 
+  // Define the currentUserSubject as a BehaviorSubject
+  private currentUserSubject: BehaviorSubject<User | null>;
 
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
+  // Define currentUser$ as an Observable for the current user
+  public currentUser$: Observable<User | null>;
 
   constructor() {
-    // Initialize the currentUserSubject with data from localStorage if available
     const currentUser = localStorage.getItem('currentUser');
-    if (currentUser) {
-      this.currentUserSubject.next(JSON.parse(currentUser));
-    }
+    this.currentUserSubject = new BehaviorSubject<User | null>(
+      currentUser ? JSON.parse(currentUser) : null
+    );
+    this.currentUser$ = this.currentUserSubject.asObservable();
   }
 
   // Get all users
-  getUsers(): User[] {
-    return this.users;
+  getUsers(): Observable<User[]> {
+    return of(this.users).pipe(
+      map((users) => users),
+      catchError(this.handleError<User[]>('getUsers', []))
+    );
   }
 
   // Get a user by ID
-  getUserById(id: number): User | undefined {
-    return this.users.find(user => user.id === id);
+  getUserById(id: number): Observable<User | undefined> {
+    const user = this.users.find((user) => user.id === id);
+    return of(user).pipe(catchError(this.handleError<User>('getUserById')));
   }
 
   // Create a new user
-  createUser(user: User): void {
+  createUser(user: User): Observable<User> {
     user.id = this.users.length + 1;
     this.users.push(user);
+    return of(user).pipe(
+      map((newUser) => newUser),
+      catchError(this.handleError<User>('createUser'))
+    );
   }
 
   // Update an existing user
-  updateUser(updatedUser: User): void {
-    const index = this.users.findIndex(user => user.id === updatedUser.id);
+  updateUser(updatedUser: User): Observable<User> {
+    const index = this.users.findIndex((user) => user.id === updatedUser.id);
     if (index !== -1) {
       this.users[index] = updatedUser;
     }
+    return of(updatedUser).pipe(
+      catchError(this.handleError<User>('updateUser'))
+    );
   }
 
   // Delete a user
-  deleteUser(id: number): void {
-    this.users = this.users.filter(user => user.id !== id);
+  deleteUser(id: number): Observable<void> {
+    this.users = this.users.filter((user) => user.id !== id);
+    return of(undefined).pipe(catchError(this.handleError<void>('deleteUser')));
   }
 
   // Set the current user and update localStorage
@@ -311,7 +325,14 @@ export class UserService {
   // Logout and clear the user from localStorage
   logout(): void {
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+    this.setCurrentUser(null); // Clears the current user in the BehaviorSubject
   }
-  
+
+  // Error handling method
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error);
+      return of(result as T);
+    };
+  }
 }
