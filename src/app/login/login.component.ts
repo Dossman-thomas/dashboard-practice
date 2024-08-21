@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     // Check for stored credentials in localStorage and populate the fields
     const storedEmail = localStorage.getItem('email');
     const storedPassword = localStorage.getItem('password');
+    const storedRememberMe = localStorage.getItem('rememberMe');
 
     if (storedEmail) {
       this.email = storedEmail;
@@ -27,6 +28,11 @@ export class LoginComponent implements OnInit {
     if (storedPassword) {
       this.password = storedPassword;
     }
+
+    if (storedRememberMe) {
+      this.rememberMe = true;
+    }
+    
   }
 
   onSubmit() {
@@ -45,9 +51,11 @@ export class LoginComponent implements OnInit {
         if (this.rememberMe) {
           localStorage.setItem('email', this.email);
           localStorage.setItem('password', this.password);
+          localStorage.setItem('rememberMe', 'true');
         } else {
           localStorage.removeItem('email');
           localStorage.removeItem('password');
+          localStorage.removeItem('rememberMe');
         }
 
         alert('Login successful');
