@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 // Import components
 import { LoginComponent } from './login/login.component';
@@ -14,13 +15,14 @@ import { MyAccountComponent } from './my-account/my-account.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirect to login on load
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'manage-permissions', component: ManagePermissionsComponent },
-  { path: 'create-record', component: CreateRecordComponent },
-  { path: 'update-record', component: UpdateRecordComponent },
-  { path: 'delete-record', component: DeleteRecordComponent },
-  { path: 'my-account', component: MyAccountComponent }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'manage-permissions', component: ManagePermissionsComponent, canActivate: [AuthGuard] },
+  { path: 'create-record', component: CreateRecordComponent, canActivate: [AuthGuard] },
+  { path: 'update-record', component: UpdateRecordComponent, canActivate: [AuthGuard] },
+  { path: 'delete-record', component: DeleteRecordComponent, canActivate: [AuthGuard] },
+  { path: 'my-account', component: MyAccountComponent, canActivate: [AuthGuard] },
   // Add other routes here in the future
+  { path: '**', redirectTo: '/login' }, // Redirect to login for all other routes
 ];
 
 @NgModule({
