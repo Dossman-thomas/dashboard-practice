@@ -15,6 +15,7 @@ import { CreateRecordComponent } from './create-record/create-record.component';
 import { UpdateRecordComponent } from './update-record/update-record.component';
 import { DeleteRecordComponent } from './delete-record/delete-record.component';
 import { MyAccountComponent } from './my-account/my-account.component';
+import { DeleteButtonRendererComponent } from './delete-button-renderer/delete-button-renderer.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MyAccountComponent } from './my-account/my-account.component';
     CreateRecordComponent,
     UpdateRecordComponent,
     DeleteRecordComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    DeleteButtonRendererComponent
   ],
   imports: [
     BrowserModule,

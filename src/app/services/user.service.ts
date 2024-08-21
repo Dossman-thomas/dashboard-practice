@@ -307,8 +307,8 @@ export class UserService {
   }
 
   // Delete a user
-  deleteUser(id: number): Observable<void> {
-    this.users = this.users.filter((user) => user.id !== id);
+  deleteUser(userId: number): Observable<void> {
+    this.users = this.users.filter((user) => user.id !== userId);
     return of(undefined).pipe(catchError(this.handleError<void>('deleteUser')));
   }
 
