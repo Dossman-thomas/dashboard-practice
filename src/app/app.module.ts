@@ -14,6 +14,7 @@ import { ManagePermissionsComponent } from './manage-permissions/manage-permissi
 import { CreateRecordComponent } from './create-record/create-record.component';
 import { UpdateRecordComponent } from './update-record/update-record.component';
 import { DeleteRecordComponent } from './delete-record/delete-record.component';
+import { MyAccountComponent } from './my-account/my-account.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DeleteRecordComponent } from './delete-record/delete-record.component';
     ManagePermissionsComponent,
     CreateRecordComponent,
     UpdateRecordComponent,
-    DeleteRecordComponent
+    DeleteRecordComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
