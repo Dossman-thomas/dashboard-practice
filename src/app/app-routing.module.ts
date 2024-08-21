@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagePermissionsComponent } from './manage-permissions/manage-permissions.component';
-import { ManageRecordsComponent } from './manage-records/manage-records.component';
 import { CreateRecordComponent } from './create-record/create-record.component';
 import { UpdateRecordComponent } from './update-record/update-record.component';
 import { DeleteRecordComponent } from './delete-record/delete-record.component';
