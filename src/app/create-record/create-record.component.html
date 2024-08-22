@@ -1,8 +1,8 @@
-<div class="container m-4">
+<div class="card mt-5 p-4 w-75 mx-auto">
   <h2 class="mb-3">Create New Record</h2>
   <form (ngSubmit)="onCreateUser()" #createUserForm="ngForm">
     <div class="mb-3">
-      <label for="userName" class="form-label">Name</label>
+      <label for="userName" class="form-label">Name:</label>
       <input
         type="text"
         class="form-control"
@@ -13,7 +13,7 @@
       />
     </div>
     <div class="mb-3">
-      <label for="userEmail" class="form-label">Email</label>
+      <label for="userEmail" class="form-label">Email:</label>
       <input
         type="email"
         class="form-control"
@@ -24,7 +24,7 @@
       />
     </div>
     <div class="mb-3">
-      <label for="userRole" class="form-label">Role</label>
+      <label for="userRole" class="form-label">Role:</label>
       <input
         type="text"
         class="form-control"
@@ -34,11 +34,21 @@
         required
       />
     </div>
+    <div class="mb-3">
+      <label for="userPassword" class="form-label">Temporary Password:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="userPassword"
+        [(ngModel)]="newUser.password"
+        name="password"
+        required
+      />
+    </div>
     <button
       type="submit"
-      class="btn btn-primary"
+      class="btn btn-primary w-100"
       [disabled]="!createUserForm.form.valid"
-      (onclick)="redirectToDash()"
     >
       Create
     </button>

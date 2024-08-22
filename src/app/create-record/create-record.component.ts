@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { UserService, User } from '../services/user.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-create-record',
   templateUrl: './create-record.component.html',
@@ -28,12 +27,10 @@ export class CreateRecordComponent {
       }
     });
   }
-  
 
   redirectToDash(): void {
     this.router.navigate(['/dashboard']);
   }
-  
 
   private generateNewId(): number {
     return Math.max(...this.userService.getCurrentUsers().map(user => user.id)) + 1;
