@@ -3,7 +3,7 @@ import { UserService, User } from '../services/user.service';
 import { ColDef, GridApi } from 'ag-grid-community';
 // import { UpdateButtonRendererComponent } from '../update-button-renderer/update-button-renderer.component';
 import { AgGridAngular } from 'ag-grid-angular';
-import * as bootstrap from 'bootstrap';
+// import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-update-record',
@@ -32,9 +32,9 @@ export class UpdateRecordComponent implements OnInit {
 
   colDefs: ColDef[] = [
     { field: 'id', headerName: 'ID', editable: false },
-    { field: 'name', headerName: 'Name', flex: 2 },
-    { field: 'email', headerName: 'Email', flex: 2 },
-    { field: 'role', headerName: 'Role' }
+    { field: 'name', headerName: 'Name', flex: 3 },
+    { field: 'email', headerName: 'Email', flex: 3 },
+    { field: 'role', headerName: 'Role', flex: 2 },
   ];
 
   ngOnInit() {
@@ -98,6 +98,7 @@ export class UpdateRecordComponent implements OnInit {
     this.userService.updateUser(updatedUser).subscribe({
       next: () => {
         console.log('User updated:', updatedUser);
+        alert('User updated successfully!');
       },
       error: (error) => {
         console.error('Error updating user:', error);

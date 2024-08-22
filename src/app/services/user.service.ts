@@ -303,7 +303,7 @@ export class UserService {
     }
 
     console.log('Updated user:', updatedUser);
-    
+
     return of(updatedUser).pipe(
       catchError(this.handleError<User>('updateUser'))
     );
@@ -323,6 +323,17 @@ export class UserService {
       localStorage.removeItem('currentUser');
     }
     this.currentUserSubject.next(user);
+  }
+
+  // Get the current user value
+  getCurrentUsers(): User[] {
+    return this.users;
+  }
+
+  // Add a new user to the users array
+  addUser(user: User): Observable<void> {
+    this.users.push(user);
+    return of();
   }
 
   // Logout and clear the user from localStorage
