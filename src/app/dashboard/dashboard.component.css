@@ -1,2 +1,33 @@
+.dash-container {
+    width: 92%;
+    height: 300px; 
+}
 
-  
+.stat-cards {
+    padding: 10px 30px;
+    border-radius: 13px;
+}
+
+.card-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+#stat-div {
+    height: 140px;
+}
+
+/* Card colors */
+
+#tot-users-card {
+    background-color: #98BDFF;
+}
+
+#tot-d-managers-card {
+    background-color: #F3797E;
+}
+
+#tot-employee-card {
+    background-color: #7978E9;
+}
