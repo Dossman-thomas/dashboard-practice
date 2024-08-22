@@ -301,6 +301,9 @@ export class UserService {
     if (index !== -1) {
       this.users[index] = updatedUser;
     }
+
+    console.log('Updated user:', updatedUser);
+    
     return of(updatedUser).pipe(
       catchError(this.handleError<User>('updateUser'))
     );

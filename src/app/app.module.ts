@@ -16,6 +16,7 @@ import { UpdateRecordComponent } from './update-record/update-record.component';
 import { DeleteRecordComponent } from './delete-record/delete-record.component';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { DeleteButtonRendererComponent } from './delete-button-renderer/delete-button-renderer.component';
+import { UpdateButtonRendererComponent } from './update-button-renderer/update-button-renderer.component';
 
 @NgModule({
   declarations: [
@@ -29,14 +30,15 @@ import { DeleteButtonRendererComponent } from './delete-button-renderer/delete-b
     UpdateRecordComponent,
     DeleteRecordComponent,
     MyAccountComponent,
-    DeleteButtonRendererComponent
+    DeleteButtonRendererComponent,
+    UpdateButtonRendererComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     AgGridAngular,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
