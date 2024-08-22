@@ -8,30 +8,32 @@ import { UserService, User } from '../services/user.service';
 })
 export class MyAccountComponent implements OnInit {
   currentUser: User = { id: 0, name: '', email: '', password: '', role: '' };
-  isEditing: boolean = false;
+  isEditing = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadCurrentUser();
   }
 
   loadCurrentUser(): void {
-    const users = this.userService.getCurrentUsers(); // Get the list of users
-    const loggedInUserId = parseInt(localStorage.getItem('currentUserId') || '0', 10);
-    
-    this.currentUser = users.find(user => user.id === loggedInUserId) || { id: 0, name: '', email: '', password: '', role: '' };
+    const user = this.userService.getCurrentUser();
+    if (user) {
+      this.currentUser = { ...user };
+    }
   }
 
-  editUser(): void {
+  onEdit(): void {
     this.isEditing = true;
   }
 
-  saveChanges(): void {
+  onSave(): void {
     this.userService.updateUser(this.currentUser).subscribe({
       next: () => {
-        this.isEditing = false;
         console.log('User updated:', this.currentUser);
+        this.isEditing = false;
+        // Update the current user in the service
+        this.userService.setCurrentUser(this.currentUser);
       },
       error: (error) => {
         console.error('Error updating user:', error);
@@ -39,8 +41,8 @@ export class MyAccountComponent implements OnInit {
     });
   }
 
-  cancelEdit(): void {
+  onCancel(): void {
     this.isEditing = false;
-    this.loadCurrentUser(); // Reload the user to discard changes
+    this.loadCurrentUser(); // Revert to the original data
   }
 }

@@ -271,6 +271,11 @@ export class UserService {
     this.currentUser$ = this.currentUserSubject.asObservable();
   }
 
+  // Method to get the current user
+  getCurrentUser(): User | null {
+    return this.currentUserSubject.value;
+  }
+
   // Get all users
   getUsers(): Observable<User[]> {
     return of(this.users).pipe(
