@@ -1,12 +1,21 @@
 .card {
     margin-bottom: 20px;
+    height: 150px;
+    border-radius: 15px;
   }
   
-  .form-check {
-    margin-bottom: 10px;
-  }
-  
-  .card-header h5 {
-    margin: 0;
-  }
-  
+.c-header {
+  margin-top: 25px;
+  color: white;
+}
+
+.cards {
+  width: 95%;
+}
+
+
+#permissions {
+  background-color: #4B49AC;
+  color: white;
+}
+

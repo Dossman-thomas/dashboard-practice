@@ -1,13 +1,13 @@
-<div class="container mt-5">
-  <h2>Manage Permissions</h2>
-  <div class="row">
-    <div class="col-md-4" *ngFor="let rolePermission of (rolePermissions$ | async)">
-      <div class="card">
-        <div class="card-header">
-          <h5>{{ rolePermission.role | titlecase }}</h5>
+<div class="container mt-5 mx-auto d-flex flex-column">
+  <h2 class="mb-4">Manage Permissions</h2>
+  <div class="d-flex flex-column">
+    <div class="cards" *ngFor="let rolePermission of (rolePermissions$ | async)">
+      <div class="card" id="permissions">
+        <div class="c-header mx-auto">
+          <h5 class="titles">{{ rolePermission.role | titlecase }}</h5>
         </div>
         <div class="card-body">
-          <form>
+          <form class="d-flex gap-5 p-3 justify-content-around">
             <div class="form-check">
               <input
                 class="form-check-input"
