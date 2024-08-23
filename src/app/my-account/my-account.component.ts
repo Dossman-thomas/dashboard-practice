@@ -39,6 +39,7 @@ export class MyAccountComponent {
       this.userService.updateUser(this.currentUser).subscribe({
         next: (updatedUser) => {
           console.log('User updated:', updatedUser);
+          alert('Your profile was updated successfully.');
           this.isEditing = false;
         },
         error: (error) => {
