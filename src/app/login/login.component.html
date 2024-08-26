@@ -13,7 +13,7 @@
           name="email"
           #emailInput="ngModel"
         />
-        <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+        <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger my-2">
           Please enter a valid email address.
         </div>
       </div>
@@ -35,7 +35,7 @@
           </span>
           
         </div>
-        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger">
+        <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger my-2">
           Password must be between 7 and 15 characters, with at least one uppercase letter, one lowercase letter, one number, and one special character.
         </div>
       </div>
