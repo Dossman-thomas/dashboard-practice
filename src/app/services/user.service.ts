@@ -300,14 +300,22 @@ export class UserService {
     );
   }
 
+
   // Update an existing user
   updateUser(updatedUser: User): Observable<User> {
     const index = this.users.findIndex((user) => user.id === updatedUser.id);
     if (index !== -1) {
       this.users[index] = updatedUser;
-    }
 
-    console.log('Updated user:', updatedUser);
+      // Update local storage if the updated user is the current user
+      const currentUser = this.currentUserSubject.value;
+      if (currentUser && currentUser.id === updatedUser.id) {
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+        this.currentUserSubject.next(updatedUser); // Emit the updated user
+      }
+
+      console.log('Updated user:', updatedUser);
+    }
 
     return of(updatedUser).pipe(
       catchError(this.handleError<User>('updateUser'))

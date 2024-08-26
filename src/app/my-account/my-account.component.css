@@ -1,13 +1,17 @@
-.card {
-    background-color: #FAFAFA;
-    color: black;
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0px 3px 13.3px 9px rgba(202, 208, 238, 0.308);
+
+
+.card-title {
+    margin: 0;
+    color: var(--primary-purple);
+    letter-spacing: 0.03em;
+}
+
+.business-card-text {
+    margin-bottom: 8px;
 }
 
 .change-password-btn {
-    color: #F3797E;
+    color: var(--secondary-red);
     cursor: pointer;
 }
 
@@ -15,23 +19,44 @@
     border: none;
 }
 
-.edit-user-btn {
-    background-color: #4B49AC;
-    color: white;
-    cursor: pointer;
-}
-
 .save-btn,
-.update-pass-btn {
-    background-color: #98BDFF;
+.update-pass-btn,
+.edit-user-btn {
+    background-color: var(--primary-purple);
     color: white;
     cursor: pointer;
     margin: 10px 0;
 }
 
+.save-btn:hover,
+.update-pass-btn:hover,
+.edit-user-btn:hover {
+    background-color: var(--secondary-purple);
+}
+
 .cancel-btn {
-    background-color: #F3797E;
+    background-color: var(--secondary-red);
     color: white;
     cursor: pointer;
 
 }
+
+#update-heading,
+#change-pass-heading {
+    color: var(--secondary-blue);
+    font-weight: bold;
+    font-size: 2.4rem;
+  }
+
+#role-title {
+    letter-spacing: 0.15em;
+    /* transform: translateY(-5px); */
+    /* font-family: 'Trebuchet MS'; */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 100%;
+    margin-bottom: 70px;
+}
+
+

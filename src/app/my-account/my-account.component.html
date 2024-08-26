@@ -1,9 +1,17 @@
-<div class="card m-5 p-4">
+<div class="card w-50 mx-auto m-5 p-4">
   <div class="card-body">
-    <div class="d-flex justify-content-between mb-3">
-      <h2 class="card-title">My Account</h2>
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 *ngIf="!isEditing && !isChangingPassword" class="card-title">{{ currentUser?.name | uppercase }}</h2>
+      <h2 *ngIf="isEditing">
+        <span id="update-heading">Update </span>
+        <span class="secondary-text">My Account</span>
+      </h2>
+      <h2 *ngIf="isChangingPassword">
+        <span id="change-pass-heading">Change </span>
+        <span class="secondary-text">Password</span>
+      </h2>
       <!-- Change Password Section -->
-      <div *ngIf="!isEditing">
+      <div *ngIf="!isEditing && !isChangingPassword">
         <button
           type="button"
           class="btn change-password-btn"
@@ -14,15 +22,30 @@
       </div>
     </div>
 
-    <form *ngIf="currentUser" (ngSubmit)="onSubmit()">
-      <div class="form-group">
+    <!-- Display User Info as a Card -->
+    <div *ngIf="!isEditing && !isChangingPassword">
+      <p id="role-title">{{ currentUser?.role | uppercase }}</p>
+
+      <p class="business-card-text"><i class="fa-regular fa-envelope"></i> {{ currentUser?.email }}</p>
+      <p class="business-card-text mb-3"><i class="fa-solid fa-globe"></i> www.dashboard.com</p>
+      <button
+        type="button"
+        class="btn edit-user-btn w-100"
+        (click)="onEdit()"
+      >
+        Update
+      </button>
+    </div>
+
+    <!-- Edit Form -->
+    <form *ngIf="currentUser && isEditing && !isChangingPassword" (ngSubmit)="onSubmit()">
+      <div class="form-group mt-3">
         <label for="name">Name:</label>
         <input
           id="name"
           class="form-control my-2"
           [(ngModel)]="currentUser.name"
           name="name"
-          [readonly]="!isEditing"
         />
       </div>
 
@@ -33,11 +56,10 @@
           class="form-control my-2"
           [(ngModel)]="currentUser.email"
           name="email"
-          [readonly]="!isEditing"
         />
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="role">Role:</label>
         <input
           id="role"
@@ -46,9 +68,10 @@
           name="role"
           readonly
         />
-      </div>
-      <div *ngIf="isEditing" class="d-flex flex-column">
-        <button type="submit" class="btn save-btn w-100">Save Changes</button>
+      </div> -->
+
+      <div class="d-flex flex-column">
+        <button type="submit" class="btn save-btn w-100 my-3">Save Changes</button>
         <button
           type="button"
           class="btn cancel-btn w-100"
@@ -57,54 +80,45 @@
           Cancel
         </button>
       </div>
+    </form>
 
-      <div *ngIf="!isEditing">
-        <button
-          type="button"
-          class="btn edit-user-btn w-100 mt-3"
-          (click)="onEdit()"
-        >
-          Edit
-        </button>
+    <!-- Change Password Form -->
+    <div *ngIf="isChangingPassword">
+      <div class="form-group mt-3">
+        <label for="currentPassword">Current Password:</label>
+        <input
+          id="currentPassword"
+          type="password"
+          class="form-control my-2"
+          [(ngModel)]="currentPassword"
+          name="currentPassword"
+        />
       </div>
 
-      <!-- Change Password Form -->
-      <div *ngIf="isChangingPassword">
-        <div class="form-group mt-5">
-          <label for="currentPassword">Current Password:</label>
-          <input
-            id="currentPassword"
-            type="password"
-            class="form-control my-2"
-            [(ngModel)]="currentPassword"
-            name="currentPassword"
-          />
-        </div>
+      <div class="form-group">
+        <label for="newPassword">New Password:</label>
+        <input
+          id="newPassword"
+          type="password"
+          class="form-control my-2"
+          [(ngModel)]="newPassword"
+          name="newPassword"
+        />
+      </div>
 
-        <div class="form-group">
-          <label for="newPassword">New Password:</label>
-          <input
-            id="newPassword"
-            type="password"
-            class="form-control my-2"
-            [(ngModel)]="newPassword"
-            name="newPassword"
-          />
-        </div>
+      <div class="form-group">
+        <label for="confirmNewPassword">Confirm New Password:</label>
+        <input
+          id="confirmNewPassword"
+          type="password"
+          class="form-control my-2"
+          [(ngModel)]="confirmNewPassword"
+          name="confirmNewPassword"
+        />
+      </div>
 
-        <div class="form-group">
-          <label for="confirmNewPassword">Confirm New Password:</label>
-          <input
-            id="confirmNewPassword"
-            type="password"
-            class="form-control my-2"
-            [(ngModel)]="confirmNewPassword"
-            name="confirmNewPassword"
-          />
-        </div>
-
-        <div class="d-flex flex-column gap-2 mt-3">
-          <button
+      <div class="d-flex flex-column gap-2 mt-3">
+        <button
           type="button"
           class="btn update-pass-btn"
           (click)="onSubmitNewPassword()"
@@ -118,14 +132,11 @@
         >
           Cancel
         </button>
-        </div>
-
-
-
-        <div *ngIf="passwordError" class="alert alert-danger">
-          {{ passwordError }}
-        </div>
       </div>
-    </form>
+
+      <div *ngIf="passwordError" class="alert alert-danger mt-3">
+        {{ passwordError }}
+      </div>
+    </div>
   </div>
 </div>

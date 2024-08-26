@@ -4,7 +4,7 @@ import { UserService, User } from '../services/user.service';
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.css'],
+  styleUrls: ['../../styles.css','./my-account.component.css'],
 })
 export class MyAccountComponent {
   currentUser: User | null = null;
