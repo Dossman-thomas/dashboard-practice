@@ -1,13 +1,16 @@
-<div class="container m-5 p-4 mx-auto d-flex flex-column">
-  <h2 class="mb-4">Manage Permissions</h2>
-  <div class="d-flex flex-column">
+<div class="card m-5 p-5">
+  <h2 class="mb-3">
+    <span id="manage-heading">Manage </span>
+    <span class="secondary-text">Permissions</span>
+  </h2>
+  <div class="d-flex flex-wrap flex-lg-nowrap flex-column flex-lg-row justify-content-between gap-4">
     <div class="cards" *ngFor="let rolePermission of (rolePermissions$ | async)">
       <div class="card" id="permissions">
         <div class="c-header mx-auto">
           <h5 class="titles">{{ rolePermission.role | titlecase }}</h5>
         </div>
         <div class="card-body">
-          <form class="d-flex gap-5 p-3 justify-content-around">
+          <form class="d-flex flex-column gap-5 p-3 justify-content-around align-items-center mb-4">
             <div class="form-check">
               <input
                 class="form-check-input"
@@ -18,17 +21,6 @@
                 name="canCreate"
               />
               <label class="form-check-label" for="{{ rolePermission.role }}-create">Can Create</label>
-            </div>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="{{ rolePermission.role }}-read"
-                [(ngModel)]="rolePermission.canRead"
-                (change)="onPermissionChange(rolePermission.role, $event)"
-                name="canRead"
-              />
-              <label class="form-check-label" for="{{ rolePermission.role }}-read">Can Read</label>
             </div>
             <div class="form-check">
               <input
@@ -57,4 +49,5 @@
       </div>
     </div>
   </div>
+  
 </div>

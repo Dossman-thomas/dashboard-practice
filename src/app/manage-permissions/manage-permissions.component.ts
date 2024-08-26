@@ -5,7 +5,7 @@ import { PermissionsService, RolePermissions } from '../services/permissions.ser
 @Component({
   selector: 'app-manage-permissions',
   templateUrl: './manage-permissions.component.html',
-  styleUrls: ['./manage-permissions.component.css']
+  styleUrls: ['../../styles.css','./manage-permissions.component.css']
 })
 export class ManagePermissionsComponent implements OnInit {
   rolePermissions$: Observable<RolePermissions[]> = of([]); // Initialize with an empty observable
