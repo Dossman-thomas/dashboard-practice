@@ -1,5 +1,8 @@
 <div class="card mt-5 p-4 w-75 mx-auto">
-  <h2 class="mb-3">Create New Record</h2>
+  <h2 class="mb-3">
+    <span id="create-heading">Create </span>
+    <span class="secondary-text">New Record</span>
+  </h2>
   <form (ngSubmit)="onCreateUser()" #createUserForm="ngForm">
     <div class="mb-3">
       <label for="userName" class="form-label">Name:</label>
@@ -47,7 +50,7 @@
     </div>
     <button
       type="submit"
-      class="btn w-100 create-btn"
+      class="btn w-100 create-btn my-2"
       [disabled]="!createUserForm.form.valid"
     >
       Create

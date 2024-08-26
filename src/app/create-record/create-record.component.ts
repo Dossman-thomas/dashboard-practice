@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-record',
   templateUrl: './create-record.component.html',
-  styleUrls: ['./create-record.component.css']
+  styleUrls: ['../../styles.css','./create-record.component.css']
 })
 export class CreateRecordComponent {
   newUser: User = { id: 0, name: '', email: '', password: '', role: '' };
@@ -20,6 +20,7 @@ export class CreateRecordComponent {
         // Optionally clear the form after submission
         this.newUser = { id: 0, name: '', email: '', password: '', role: '' };
         // Redirect to the dashboard after creating a user
+        alert('User created successfully!');
         this.redirectToDash();
       },
       error: (error) => {

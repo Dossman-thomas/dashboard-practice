@@ -20,7 +20,7 @@
   :root {
     --primary-purple: #4B49AC;
     --primary-blue: #98BDFF;
-    --primary-bg: #f9fafd;
+    --primary-bg: #f5f8ffd3;
     --secondary-bg: #FAFAFA;
     --secondary-blue: #7DA0FA;
     --secondary-red: #F3797E;
@@ -59,4 +59,9 @@
     padding-top: 12px;
     padding-bottom: 12px;
     border: none;
+  }
+
+  .secondary-text {
+    color: var(--secondary-text);
+    font-size: 23px;
   }
