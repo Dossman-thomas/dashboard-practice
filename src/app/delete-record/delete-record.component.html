@@ -1,8 +1,11 @@
 <div class="card m-5 p-4">
-    <h2 class="mb-4">Delete User Records</h2>
+    <h2 class="mb-3 mt-1">
+      <span id="delete-heading">Delete </span>
+      <span class="secondary-text">User Records</span>
+    </h2>
     <ag-grid-angular
       style="width: 100%; height: 600px;"
-      class="ag-theme-quartz"
+      class="ag-theme-quartz mb-1"
       [rowData]="users"
       [columnDefs]="colDefs"
       [defaultColDef]="defaultColDef"
