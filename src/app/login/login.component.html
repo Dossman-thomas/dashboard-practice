@@ -1,12 +1,13 @@
-<div class="container-fluid w-25 mt-5">
-    <h2>Login</h2>
+<div class="card w-25 m-5 mx-auto p-4">
+    <img src="../../assets/pictures/Dashboard-logo.png" alt="Dashboard-logo" class="rounded mb-1 mt-2">
+    <h2 class="my-4 text-center">Welcome Back!</h2>
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
       <div class="form-group">
         <label for="email">Email:</label>
         <input
           type="email"
           id="email"
-          class="form-control"
+          class="form-control my-2"
           required
           [(ngModel)]="email"
           name="email"
@@ -23,13 +24,13 @@
           <input
             [type]="showPassword ? 'text' : 'password'"
             id="password"
-            class="form-control"
+            class="form-control mt-2"
             required
             [(ngModel)]="password"
             name="password"
             #passwordInput="ngModel"
           />
-          <span class="input-group-text eye-icon" (click)="togglePasswordVisibility()" style="cursor: pointer;">
+          <span class="input-group-text eye-icon mt-2" (click)="togglePasswordVisibility()" style="cursor: pointer;">
             <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
           </span>
           
@@ -42,7 +43,7 @@
       
       
   
-      <div class="form-group form-check">
+      <div class="form-group form-check my-4 d-flex gap-2 align-items-center">
         <input
           type="checkbox"
           class="form-check-input"
@@ -53,7 +54,9 @@
         <label class="form-check-label" for="rememberMe">Remember Me</label>
       </div>
   
-      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+      <button type="submit" class="btn btn-primary w-100 mb-2" id="login-btn" [disabled]="loginForm.invalid">
+        Login
+      </button>
     </form>
   </div>
   
