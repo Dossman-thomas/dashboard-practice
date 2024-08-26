@@ -20,13 +20,13 @@
   :root {
     --primary-purple: #4B49AC;
     --primary-blue: #98BDFF;
-    --primary-bg: #F5F8FF;
+    --primary-bg: #f9fafd;
     --secondary-bg: #FAFAFA;
     --secondary-blue: #7DA0FA;
     --secondary-red: #F3797E;
     --secondary-purple: #7978E9;
     --primary-text: #000000;
-    --secondary-text: #A7A7A7;
+    --secondary-text: #929292;
     --border-color: #ccc;
   }
 

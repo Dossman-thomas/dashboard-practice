@@ -15,6 +15,15 @@
     margin-top: 5px;
 }
 
+#welcome-user {
+    color: var(--secondary-text);
+    font-size: 25px;
+}
+
+#dash-username {
+    color: var(--primary-purple);
+}
+
 #stat-div {
     height: 140px;
 }
@@ -22,13 +31,13 @@
 /* Card colors */
 
 #tot-users-card {
-    background-color: #98BDFF;
+    background-color: var(--primary-blue);
 }
 
 #tot-d-managers-card {
-    background-color: #F3797E;
+    background-color: var(--secondary-red);
 }
 
 #tot-employee-card {
-    background-color: #7978E9;
+    background-color: var(--secondary-purple);
 }
