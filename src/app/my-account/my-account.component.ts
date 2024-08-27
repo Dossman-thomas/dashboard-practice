@@ -1,27 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService, User } from '../services/user.service';
 
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
-  styleUrls: ['../../styles.css','./my-account.component.css'],
+  styleUrls: ['../../styles.css', './my-account.component.css'],
 })
-export class MyAccountComponent {
+export class MyAccountComponent implements OnInit {
   currentUser: User | null = null;
   isEditing = false;
   isChangingPassword = false;
-  currentPassword = '';
-  newPassword = '';
-  confirmNewPassword = '';
+  userForm: FormGroup;
+  passwordForm: FormGroup;
   passwordError = '';
 
-  constructor(private userService: UserService) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService
+  ) {
+    this.userForm = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+    });
+
+    this.passwordForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', [
+        Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(15),
+        this.passwordValidator
+      ]],
+      confirmNewPassword: ['', Validators.required],
+    });
+  }
+
+  ngOnInit(): void {
     this.loadCurrentUser();
   }
 
   loadCurrentUser(): void {
     this.userService.currentUser$.subscribe((user) => {
       this.currentUser = user;
+      if (user) {
+        this.userForm.patchValue({
+          name: user.name,
+          email: user.email,
+        });
+      }
     });
   }
 
@@ -35,10 +62,16 @@ export class MyAccountComponent {
   }
 
   onSubmit(): void {
-    if (this.currentUser) {
-      this.userService.updateUser(this.currentUser).subscribe({
-        next: (updatedUser) => {
-          console.log('User updated:', updatedUser);
+    if (this.userForm.valid && this.currentUser) {
+      const updatedUser: User = {
+        ...this.currentUser,
+        name: this.userForm.value.name,
+        email: this.userForm.value.email,
+      };
+
+      this.userService.updateUser(updatedUser).subscribe({
+        next: (user) => {
+          console.log('User updated:', user);
           alert('Your profile was updated successfully.');
           this.isEditing = false;
         },
@@ -55,29 +88,29 @@ export class MyAccountComponent {
 
   onCancelPasswordChange(): void {
     this.isChangingPassword = false;
-    this.currentPassword = '';
-    this.newPassword = '';
-    this.confirmNewPassword = '';
+    this.passwordForm.reset();
     this.passwordError = '';
   }
 
   onSubmitNewPassword(): void {
     if (!this.currentUser) return;
 
+    const { currentPassword, newPassword, confirmNewPassword } = this.passwordForm.value;
+
     // Validate current password
-    if (this.currentUser.password !== this.currentPassword) {
+    if (this.currentUser.password !== currentPassword) {
       this.passwordError = 'Current password is incorrect.';
       return;
     }
 
     // Validate new password match
-    if (this.newPassword !== this.confirmNewPassword) {
+    if (newPassword !== confirmNewPassword) {
       this.passwordError = 'New passwords do not match.';
       return;
     }
 
     // Update password
-    this.currentUser.password = this.newPassword;
+    this.currentUser.password = newPassword;
     this.userService.updateUser(this.currentUser).subscribe({
       next: () => {
         console.log('Password updated successfully.');
@@ -88,5 +121,18 @@ export class MyAccountComponent {
         this.passwordError = 'Failed to update password.';
       },
     });
+  }
+
+  private passwordValidator(control: { value: string }) {
+    const password = control.value;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumeric = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const valid = hasUpperCase && hasLowerCase && hasNumeric && hasSpecial;
+    if (!valid) {
+      return { passwordInvalid: true };
+    }
+    return null;
   }
 }
