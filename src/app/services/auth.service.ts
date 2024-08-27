@@ -37,6 +37,7 @@ export class AuthService {
         }
 
         this.isLoggedInSubject.next(true);
+        this.userService.setCurrentUser(user);
         alert('Logged in successfully');
         this.router.navigate(['/dashboard']);
       } else {
