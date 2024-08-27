@@ -13,11 +13,6 @@
   app-header {
     width: 100%;
   }
-  
-  /* router-outlet {
-    flex-grow: 1;
-    padding: 20px;
-  } */
 
   app-sidebar {
     z-index: 2;

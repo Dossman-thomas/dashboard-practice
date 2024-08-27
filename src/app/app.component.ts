@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service' // Update with the correct path
 
 @Component({
   selector: 'app-root',
@@ -8,13 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   isLoggedIn: boolean = false;
 
-  ngOnInit() {
-    this.checkAuthentication();
-  }
+  constructor(private authService: AuthService) {}
 
-  checkAuthentication() {
-    const currentUser = localStorage.getItem('currentUser');
-    this.isLoggedIn = !!currentUser;
+  ngOnInit() {
+    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 }
-

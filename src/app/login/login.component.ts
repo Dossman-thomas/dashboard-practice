@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService, User } from '../services/user.service';
-
+import { AuthService } from '../services/auth.service'; // Update with the correct path
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   rememberMe: boolean = false;
   showPassword: boolean = false; // This property is correctly defined now
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private authService: AuthService) {}
 
   ngOnInit() {
     // Check for stored credentials in localStorage and populate the fields
@@ -36,35 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    // Check both email and password against static data
-    this.userService.getUsers().subscribe((users) => {
-      const user = users.find((u) => {
-        return u.email === this.email && u.password === this.password;
-      });
-
-      if (user) {
-        console.log('Login successful');
-
-        // Set the current user using UserService
-        this.userService.setCurrentUser(user);
-
-        if (this.rememberMe) {
-          localStorage.setItem('email', this.email);
-          localStorage.setItem('password', this.password);
-          localStorage.setItem('rememberMe', 'true');
-        } else {
-          localStorage.removeItem('email');
-          localStorage.removeItem('password');
-          localStorage.removeItem('rememberMe');
-        }
-
-        alert('Login successful');
-        // Redirect to dashboard or other logic here
-        this.router.navigate(['/dashboard']);
-      } else {
-        alert('Invalid credentials');
-      }
-    });
+    this.authService.login(this.email, this.password, this.rememberMe);
   }
 
   togglePasswordVisibility() {

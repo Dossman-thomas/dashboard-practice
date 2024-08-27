@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { PermissionsService, RolePermissions } from '../services/permissions.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { AuthService } from '../services/auth.service'; // Update with the correct path
 
 @Component({
   selector: 'app-sidebar',
@@ -22,6 +23,7 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private router: Router, 
+    private authService: AuthService,
     private userService: UserService, 
     private permissionsService: PermissionsService,
     private cdr: ChangeDetectorRef
@@ -67,8 +69,6 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(): void {
-    this.userService.logout();
-    this.router.navigate(['/login']);
-    this.cdr.detectChanges();
+    this.authService.logout();
   }
 }
