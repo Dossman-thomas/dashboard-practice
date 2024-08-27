@@ -14,6 +14,9 @@ export class MyAccountComponent implements OnInit {
   userForm: FormGroup;
   passwordForm: FormGroup;
   passwordError = '';
+  showPassword: boolean = false; 
+  showNewPassword: boolean = false;
+  showConfirmNewPassword: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -121,6 +124,18 @@ export class MyAccountComponent implements OnInit {
         this.passwordError = 'Failed to update password.';
       },
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword; // Toggles the value of showPassword
+  }
+
+  toggleNewPasswordVisibility() {
+    this.showNewPassword = !this.showNewPassword;
+  }
+
+  toggleConfirmNewPasswordVisibility() {
+    this.showConfirmNewPassword = !this.showConfirmNewPassword;
   }
 
   private passwordValidator(control: { value: string }) {
