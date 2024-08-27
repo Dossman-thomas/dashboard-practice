@@ -23,9 +23,9 @@ export class PermissionsService {
     },
     {
       role: 'data manager',
-      canCreate: false,
+      canCreate: true,
       canRead: true,
-      canUpdate: false,
+      canUpdate: true,
       canDelete: false,
     },
     {
