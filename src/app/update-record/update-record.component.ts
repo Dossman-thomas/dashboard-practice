@@ -8,9 +8,10 @@ import { AgGridAngular } from 'ag-grid-angular';
 @Component({
   selector: 'app-update-record',
   templateUrl: './update-record.component.html',
-  styleUrls: ['../../styles.css','./update-record.component.css']
+  styleUrls: ['./update-record.component.css']
 })
 export class UpdateRecordComponent implements OnInit {
+  
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
   users: User[] = [];

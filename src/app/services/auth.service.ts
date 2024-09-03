@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { UserService } from './user.service';  // Update with the correct path
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // Service is available globally
 })
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);

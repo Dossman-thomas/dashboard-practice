@@ -10,7 +10,7 @@ export interface User {
   role: string;
 }
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root', // Service is available globally
 })
 export class UserService {
   private users: User[] = [
