@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService, User } from '../services/user.service';
 import { AuthService } from '../services/auth.service'; // Update with the correct path
+import { CookieService } from 'ngx-cookie-service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,13 +15,18 @@ export class LoginComponent implements OnInit {
   rememberMe: boolean = false;
   showPassword: boolean = false; // This property is correctly defined now
 
-  constructor(private router: Router, private userService: UserService, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private authService: AuthService,
+    private cookieService: CookieService
+  ) {}
 
   ngOnInit() {
     // Check for stored credentials in localStorage and populate the fields
-    const storedEmail = localStorage.getItem('email');
-    const storedPassword = localStorage.getItem('password');
-    const storedRememberMe = localStorage.getItem('rememberMe');
+    const storedEmail = this.cookieService.get('email');
+    const storedPassword = this.cookieService.get('password');
+    const storedRememberMe = this.cookieService.get('rememberMe');
 
     if (storedEmail) {
       this.email = storedEmail;
@@ -32,7 +39,6 @@ export class LoginComponent implements OnInit {
     if (storedRememberMe) {
       this.rememberMe = true;
     }
-    
   }
 
   onSubmit() {
