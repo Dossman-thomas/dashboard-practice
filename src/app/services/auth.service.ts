@@ -5,23 +5,36 @@ import { UserService } from './user.service'; // Update with the correct path
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root', // Service is available globally
+  providedIn: 'root',
 })
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(
-    private userService: UserService, // Inject the UserService
-    private router: Router, // Inject the Router
-    private cookieService: CookieService // Inject the CookieService
+    private userService: UserService, 
+    private router: Router, 
+    private cookieService: CookieService
   ) {
     this.checkInitialAuthState();
+
+    // Listen for any window navigation events (like the back button)
+    window.addEventListener('popstate', this.handlePopStateEvent.bind(this));
   }
 
   private checkInitialAuthState() {
     const currentUser = localStorage.getItem('currentUser');
     this.isLoggedInSubject.next(!!currentUser);
+  }
+
+  // Handle browser back/forward navigation
+  private handlePopStateEvent() {
+    const currentUser = localStorage.getItem('currentUser');
+    
+    if (!currentUser) {
+      this.isLoggedInSubject.next(false); 
+      this.router.navigate(['/login']);
+    }
   }
 
   login(email: string, password: string, rememberMe: boolean) {
@@ -58,9 +71,6 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('currentUser');
-    // localStorage.removeItem('email');
-    // localStorage.removeItem('password');
-    // localStorage.removeItem('rememberMe');
     this.isLoggedInSubject.next(false);
     this.router.navigate(['/login']);
   }

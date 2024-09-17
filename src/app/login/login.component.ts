@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService, User } from '../services/user.service';
-import { AuthService } from '../services/auth.service'; // Update with the correct path
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service'; 
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
-  showPassword: boolean = false; // This property is correctly defined now
+  showPassword: boolean = false; 
 
   constructor(
     private router: Router,
@@ -23,7 +23,13 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Check for stored credentials in localStorage and populate the fields
+    // If the user is already logged in, redirect them to the dashboard
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/dashboard']);
+      return; // Stop further execution to prevent showing the login form
+    }
+
+    // Check for stored credentials in cookies and populate the fields
     const storedEmail = this.cookieService.get('email');
     const storedPassword = this.cookieService.get('password');
     const storedRememberMe = this.cookieService.get('rememberMe');
@@ -46,6 +52,6 @@ export class LoginComponent implements OnInit {
   }
 
   togglePasswordVisibility() {
-    this.showPassword = !this.showPassword; // Toggles the value of showPassword
+    this.showPassword = !this.showPassword;
   }
 }
