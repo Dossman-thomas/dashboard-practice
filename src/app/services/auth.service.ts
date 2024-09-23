@@ -5,7 +5,7 @@ import { UserService } from './user.service'; // Update with the correct path
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root', // Service is available globally
 })
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
